@@ -5,7 +5,6 @@ console.log(url);
 let nameFromUrl = (url) => {
   let getUrl = url.split('=');
   let name = getUrl[1];
-  console.log(name);
   if (name == undefined) {
     name = 'DMBorozdin';
   }
