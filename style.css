@@ -1,0 +1,18 @@
+.image {
+  width: 460px;
+  height: 460px;
+  display: block;
+  margin: 0 auto 20px auto;
+  border-radius: 50%;
+}
+
+.link {
+  display: block;
+  text-align: center;
+  font-size: 25px;
+}
+
+.bio {
+  text-align: center;
+  font-size: 20px;
+}
