@@ -11,6 +11,7 @@ let nameFromUrl = (url) => {
   return name;
 }
 
+console.log(nameFromUrl(url));
 
 fetch(`https://api.github.com/users/${nameFromUrl(url)}`)
   .then(info => info.json())
