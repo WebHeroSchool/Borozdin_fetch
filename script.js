@@ -1,8 +1,10 @@
 setTimeout(() => {
   let preloader = document.querySelector('.preloader');
   preloader.classList.add('visible');
-  let body = document.body;
+  let body = document.querySelector('.card_container');
   let url = window.location.toString();
+  let urlApi = 'https://api.github.com/users/';
+  let date = new Date();
   console.log(url);
 
   let nameFromUrl = (url) => {
@@ -15,12 +17,15 @@ setTimeout(() => {
   }
 
   let getDate = new Promise((resolve, reject) => {
-    setTimeout(() => {
-      let date = new Date();
-    },3000);
+    setTimeout(() => date ? resolve(date) : reject('Ошибка даты'),100);
   });
 
-  fetch(`https://api.github.com/users/${nameFromUrl(url)}`)
+  let getUrl = new Promise((resolve,reject) => {
+    setTimeout(() => resolve(`${urlApi}${nameFromUrl(url)}`),100);
+  });
+
+  Promise.all([getUrl,getDate])
+    .then(([url,date]) => fetch(url))
     .then(info => info.json())
     .then(json => {
       console.log(json.avatar_url);
@@ -47,6 +52,11 @@ setTimeout(() => {
       body.appendChild(userBio);
 
       console.log(json.html_url);
+
+      let dateContainer = document.createElement('p');
+      dateContainer.classList.add('date');
+      dateContainer.innerHTML = `Дата поиска: ${date.getDate()}.${date.getMonth()}.${date.getFullYear()}`;
+      body.appendChild(dateContainer);
     })
     .catch(err =>  alert('Информация о пользователе не доступна'));
-},3000)
+},2000)
